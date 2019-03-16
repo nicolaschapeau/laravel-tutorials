@@ -1,6 +1,8 @@
 @extends('template')
 
 @section('content')
+    <br>
+
     <div class="container">
 
         <div class="jumbotron">
