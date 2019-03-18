@@ -27,7 +27,7 @@ class AnswersController extends Controller
         ]);
 
         $answer = new Answer();
-        $answer->content = $request->content;
+        $answer->content = $request->get('content');
 
         $question = Question::findOrFail($request->question_id);
         $answer->user()->associate(Auth::id());

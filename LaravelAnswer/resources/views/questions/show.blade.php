@@ -11,6 +11,9 @@
         <p>
             Submitted By : {{ $question->user->name }} on {{ $question->created_at->diffForHumans() }}
         </p>
+        @if(Auth::id() === $question->user->id)
+            <a class="btn btn-primary" href="{{ route('questions.edit', $question->id) }}">Edit Question</a>
+        @endif
         <hr />
 
         <!-- display all of the answers for this question -->
