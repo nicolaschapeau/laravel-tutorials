@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Answer;
 use App\Question;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class AnswersController extends Controller
 {
@@ -44,7 +44,13 @@ class AnswersController extends Controller
      */
     public function edit($id)
     {
-        //
+        $answer = Answer::findOrFail($id);
+
+        if ($answer->user->id != Auth::id()) {
+            return abort(403);
+        }
+
+        return view('answers.edit')->with('answer', $answer);
     }
 
     /**
@@ -56,7 +62,23 @@ class AnswersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'content' => 'required|min:15'
+        ]);
+
+        $answer = Answer::findOrFail($id);
+
+        if ($answer->user->id != Auth::id()) {
+            return abort(403);
+        }
+
+        $answer->content = $request->get('content');
+
+        if ($answer->save()) {
+            return redirect()->route('questions.show', $answer->question->id);
+        } else {
+            return redirect()->route('questions.edit', $answer->id);
+        }
     }
 
     /**

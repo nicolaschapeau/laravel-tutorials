@@ -29,6 +29,9 @@
                         <h6>
                            Answered by {{ $answer->user->name  }}, {{ $answer->created_at->diffForHumans() }}
                         </h6>
+                        @if(Auth::id() === $answer->user_id)
+                            <a class="btn btn-primary" href="{{ route('answers.edit', $answer->id) }}">Edit Answer</a>
+                        @endif
                     </div>
                 </div>
             @endforeach
