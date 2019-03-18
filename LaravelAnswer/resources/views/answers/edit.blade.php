@@ -11,7 +11,7 @@
             {{ method_field('PUT') }}
 
             <label for="description">Answer content :</label>
-            <textarea class="form-control" name="description" id="description" rows="4">{{ $answer->description }}</textarea>
+            <textarea class="form-control" name="content" id="content" rows="4">{{ $answer->content }}</textarea>
 
             <br>
 

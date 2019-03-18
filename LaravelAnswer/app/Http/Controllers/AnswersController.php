@@ -63,7 +63,7 @@ class AnswersController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate($request, [
-            'content' => 'required|min:15'
+            'content' => "required|min:15"
         ]);
 
         $answer = Answer::findOrFail($id);
