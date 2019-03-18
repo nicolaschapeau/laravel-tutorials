@@ -8,7 +8,9 @@
         <p class="lead">
             {{ $question->description }}
         </p>
-
+        <p>
+            Submitted By : {{ $question->user->name }} on {{ $question->created_at->diffForHumans() }}
+        </p>
         <hr />
 
         <!-- display all of the answers for this question -->
@@ -16,11 +18,14 @@
         @if($question->answers->count() > 0)
 
             @foreach($question->answers as $answer)
-                <div class="panel panel-default my-2" style="background: #fefefe; border-radius: 3px; border: 1px solid #eee;">
-                    <div class="panel-body d-flex justify-content-start align-items-center mt-3 ml-2">
+                <div class="panel panel-default my-3" style="background: #fefefe; border-radius: 3px; border: 1px solid #eee;">
+                    <div class="panel-body d-flex justify-content-start align-items-start flex-column mt-3 ml-2 mb-3">
                         <p>
                             {{ $answer->content  }}
                         </p>
+                        <h6>
+                           Answered by {{ $answer->user->name  }}, {{ $answer->created_at->diffForHumans() }}
+                        </h6>
                     </div>
                 </div>
             @endforeach
