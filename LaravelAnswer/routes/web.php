@@ -25,3 +25,5 @@ Route::resource('answers', 'AnswersController', ['except' => ['index', 'create',
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/profile/{user}', 'PageController@profile')->name('profile');
