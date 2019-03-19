@@ -11,6 +11,9 @@
         <p>
             Submitted By : {{ $question->user->name }} on {{ $question->created_at->diffForHumans() }}
         </p>
+        @if(Auth::id() === $question->user->id)
+            <a class="btn btn-primary" href="{{ route('questions.edit', $question->id) }}">Edit Question</a>
+        @endif
         <hr />
 
         <!-- display all of the answers for this question -->
@@ -26,6 +29,9 @@
                         <h6>
                            Answered by {{ $answer->user->name  }}, {{ $answer->created_at->diffForHumans() }}
                         </h6>
+                        @if(Auth::id() === $answer->user_id)
+                            <a class="btn btn-primary" href="{{ route('answers.edit', $answer->id) }}">Edit Answer</a>
+                        @endif
                     </div>
                 </div>
             @endforeach

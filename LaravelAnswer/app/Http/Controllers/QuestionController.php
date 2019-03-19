@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Question;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class QuestionController extends Controller
 {
@@ -44,7 +44,7 @@ class QuestionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|max:255',
+            'title' => 'required|max:255'
         ]);
 
         $question = new Question;
@@ -86,7 +86,7 @@ class QuestionController extends Controller
             return abort(403);
         }
 
-        return view('questions.edit');
+        return view('questions.edit')->with('question', $question);
     }
 
     /**
@@ -98,12 +98,25 @@ class QuestionController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $this->validate($request, [
+            'title' => 'required|max:255'
+        ]);
+
         $question = Question::findOrFail($id);
 
         if ($question->user->id != Auth::id()) {
             return abort(403);
         }
 
+
+        $question->title = $request->get('title');
+        $question->description = $request->get('description');
+
+        if($question->save()) {
+            return redirect()->route('questions.show', $question->id);
+        } else {
+            return redirect()->route('questions.edit')->with('question', $question);
+        }
 
     }
 
