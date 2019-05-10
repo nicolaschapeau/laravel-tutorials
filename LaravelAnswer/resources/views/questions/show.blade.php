@@ -44,9 +44,10 @@
                 The are no answers for this question yet.
             </p>
 
+            <hr />
+
         @endif
 
-        <hr />
 
         <!-- display the form, to submit a new answer -->
         <form action="{{ route('answers.store') }}" method="POST">
@@ -54,7 +55,7 @@
 
             <h4>Submit your own answer :</h4>
 
-            <textarea class="form-control" name="content" rows="4"></textarea>
+            <textarea class="form-control" name="content" id="content" rows="4"></textarea>
             <input type="hidden" value="{{ $question->id }}" name="question_id">
             <button class="btn btn-primary mt-3">Submit answer</button>
         </form>
